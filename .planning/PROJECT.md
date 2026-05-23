@@ -73,6 +73,11 @@ See where your money is going *before* it goes there — a trustworthy cash-flow
 | Connector abstract interface before any implementation | All reconciliation/rules logic stays provider-agnostic; swap Plaid for SimpleFIN with zero logic changes | — Pending |
 | BYO API keys for self-hosted LLM/Plaid/SimpleFIN | No vendor lock-in; self-hosters stay in control; cloud version uses same interface | — Pending |
 | Forecast as headline feature (Phase 7) | Everything before it (accounts, transactions, recurring) is infrastructure; forecast is the reason to keep using the app | — Pending |
+| Next.js 16.2+ (upgraded from 14) | 14 is 2 majors behind; async params/cookies()/headers() are breaking changes; Node 22 required | ✓ Good |
+| SQLAlchemy 2.0 async over SQLModel | FastAPI tutorial recommends SQLModel but it fuses ORM+schema layers, violating CLAUDE.md separation | ✓ Good |
+| procrastinate over pg-boss/ARQ | pg-boss is Node-only; procrastinate is Postgres-native, keeps Redis out of docker-compose | ✓ Good |
+| Hand-rolled auth over fastapi-users | fastapi-users is user-centric, fights household schema; ~150 lines with PyJWT + pwdlib[argon2] | ✓ Good |
+| Postgres RLS in Phase 1 (not Phase 13) | Retrofitting multi-tenancy isolation across 14 tables is expensive; enforce from day one | ✓ Good |
 
 ## Evolution
 
