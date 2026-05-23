@@ -80,14 +80,14 @@
 - [ ] **RECUR-04**: Dashboard shows "Upcoming this week" widget from recurring generator
 - [ ] **RECUR-05**: User sees preview of next 3 occurrences when creating/editing a recurring item
 
-### Budget View (Phase 6.5)
+### Budget View (Phase 7)
 
 - [ ] **BUDG-01**: User can set a monthly budget allocation per category
 - [ ] **BUDG-02**: Dashboard / budget view shows allocated vs actual spend per category for current month
 - [ ] **BUDG-03**: Categories over budget are visually flagged
 - [ ] **BUDG-04**: Budget rollover behavior is configurable (start fresh vs roll unused amount)
 
-### Forecast View (Phase 7)
+### Forecast View (Phase 8)
 
 - [ ] **FORE-01**: Forecast shows daily projected balance per account for 30/60/90 days
 - [ ] **FORE-02**: Forecast inputs: current balances, scheduled transactions, avg spend by category (rolling 90-day), known one-offs
@@ -97,20 +97,20 @@
 - [ ] **FORE-06**: Forecast view shows staleness caveat when last sync is >3 days old
 - [ ] **FORE-07**: `GET /forecast?days=90&account_id=all` API endpoint
 
-### Reports (Phase 7.5)
+### Reports (Phase 9)
 
 - [ ] **REPT-01**: User can view spending by category for any date range
 - [ ] **REPT-02**: User can view monthly summary (income vs expenses vs net)
 - [ ] **REPT-03**: User can view year-over-year spending comparison by category
 - [ ] **REPT-04**: Reports default to `transaction_date`; user can switch to `post_date` in settings
 
-### Bill Pay Tracking (Phase 8)
+### Bill Pay Tracking (Phase 10)
 
 - [ ] **BILL-01**: Dashboard "Action needed" widget lists credit card accounts where autopay is off and due date is within 7 days
 - [ ] **BILL-02**: User can mark a bill as paid (logs a transaction, clears from widget)
 - [ ] **BILL-03**: Account fields `is_autopay_enabled`, `statement_close_day`, `payment_due_day` drive the widget
 
-### Onboarding (Phase 8.5)
+### Onboarding (Phase 11)
 
 - [ ] **ONBRD-01**: First-time user is guided through: add first account → import or manual transaction → set categories → add a recurring item
 - [ ] **ONBRD-02**: Onboarding wizard can be dismissed and resumed; not shown again once completed
@@ -126,7 +126,7 @@
 - **PORT-02**: User can export full household data as JSON
 - **PORT-03**: `make backup` wraps pg_dump with documented restore procedure
 
-### Plaid Connector (Phase 9)
+### Plaid Connector (Phase 12)
 
 - **PLAID-01**: User can connect a bank account via Plaid Link (BYO `PLAID_CLIENT_ID` + `PLAID_SECRET`)
 - **PLAID-02**: Nightly sync pulls new transactions via Plaid Transactions Sync cursor
@@ -135,7 +135,7 @@
 - **PLAID-05**: `ITEM_LOGIN_REQUIRED` surfaces as dashboard banner; connector status shown
 - **PLAID-06**: Plaid webhooks (`TRANSACTIONS_SYNC`, `ITEM_ERROR`, `AUTH_STATUS_UPDATED`) handled idempotently
 
-### Price Tracking (Phase 10)
+### Price Tracking (Phase 13)
 
 - **PRICE-01**: User can create a tracked item (name, unit, optional barcode)
 - **PRICE-02**: User can log a price observation (store, price, date)
@@ -143,12 +143,12 @@
 - **PRICE-04**: Dashboard widget shows items with biggest price change in last 30 days
 - **PRICE-05**: Auto-link fires when a receipt line item matches a tracked item name (fuzzy)
 
-### SimpleFIN Connector (Phase 11)
+### SimpleFIN Connector (Phase 14)
 
 - **SIMFIN-01**: User can connect accounts via SimpleFIN bridge token
 - **SIMFIN-02**: Sync reuses all reconciliation logic from Plaid connector with zero code changes
 
-### Receipt Parsing (Phase 12)
+### Receipt Parsing (Phase 15)
 
 - **RCPT-01**: User can photograph/upload a receipt; app parses it via LLM (BYO API key)
 - **RCPT-02**: Parsed line items are shown for user confirmation before saving
@@ -157,7 +157,7 @@
 - **RCPT-05**: Per-household rate limit (50/day configurable) and cost preview before parsing
 - **RCPT-06**: User can forward receipt emails to a configured inbox for auto-parsing
 
-### Multi-User UI (Phase 13)
+### Multi-User UI (Phase 16)
 
 - **MULTI-01**: Household owner can invite a member by email
 - **MULTI-02**: Invitee receives email link, accepts, joins household
@@ -166,7 +166,7 @@
 - **MULTI-05**: Dashboard and reports show per-member spend breakdown
 - **MULTI-06**: Member can leave household; owner can transfer ownership
 
-### Investment Accounts (Phase 14)
+### Investment Accounts (Phase 17)
 
 - **INVEST-01**: User can create an investment account (brokerage, IRA, 401k, Roth IRA, HSA)
 - **INVEST-02**: User can manually enter portfolio positions (symbol, quantity, cost basis)
@@ -197,28 +197,30 @@
 
 ## Traceability
 
-*(Populated by roadmapper — see ROADMAP.md)*
+*Populated by roadmapper — see ROADMAP.md for full phase details and success criteria.*
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 through INFRA-09 | Phase 0 | Pending |
-| AUTH-01 through AUTH-09 | Phase 1 | Pending |
-| ACCT-01 through ACCT-06 | Phase 2 | Pending |
-| TXN-01 through TXN-10 | Phase 3 | Pending |
-| CSV-01 through CSV-07 | Phase 4 | Pending |
-| RULE-01 through RULE-06 | Phase 5 | Pending |
-| RECUR-01 through RECUR-05 | Phase 6 | Pending |
-| BUDG-01 through BUDG-04 | Phase 6.5 | Pending |
-| FORE-01 through FORE-07 | Phase 7 | Pending |
-| REPT-01 through REPT-04 | Phase 7.5 | Pending |
-| BILL-01 through BILL-03 | Phase 8 | Pending |
-| ONBRD-01 through ONBRD-03 | Phase 8.5 | Pending |
+| INFRA-01 through INFRA-09 | Phase 0 — Repo Skeleton | Pending |
+| AUTH-01 through AUTH-09 | Phase 1 — Auth + Household + RLS Activation | Pending |
+| ACCT-01 through ACCT-06 | Phase 2 — Accounts + Net Worth History | Pending |
+| TXN-01 through TXN-10 | Phase 3 — Categories + Manual Transactions + Tags + Transfers | Pending |
+| CSV-01 through CSV-07 | Phase 4 — CSV Import + Background Worker | Pending |
+| RULE-01 through RULE-06 | Phase 5 — Rules Engine | Pending |
+| RECUR-01 through RECUR-05 | Phase 6 — Recurring Transactions | Pending |
+| BUDG-01 through BUDG-04 | Phase 7 — Budget View | Pending |
+| FORE-01 through FORE-07 | Phase 8 — Forecast View | Pending |
+| REPT-01 through REPT-04 | Phase 9 — Reports | Pending |
+| BILL-01 through BILL-03 | Phase 10 — Bill Pay Tracking | Pending |
+| ONBRD-01 through ONBRD-03 | Phase 11 — Onboarding Wizard | Pending |
 
 **Coverage:**
-- v1 requirements: 71 total
-- Mapped to phases: 71
+- v1 requirements enumerated: 73 total (INFRA 9 + AUTH 9 + ACCT 6 + TXN 10 + CSV 7 + RULE 6 + RECUR 5 + BUDG 4 + FORE 7 + REPT 4 + BILL 3 + ONBRD 3)
+- Mapped to phases: 73
 - Unmapped: 0 ✓
+
+*Note: prior "71 total" tally corrected on 2026-05-23 during roadmap creation — all REQ-IDs were already enumerated; only the summary count was off.*
 
 ---
 *Requirements defined: 2026-05-23*
-*Last updated: 2026-05-23 after initial definition*
+*Last updated: 2026-05-23 — traceability populated, phase numbers promoted (6.5→7, 7.5→9, 8.5→11), count tally corrected*
