@@ -40,12 +40,12 @@ This roadmap uses **horizontal-layer structuring** (foundation → auth → data
   2. `http://localhost:8000/health` returns `{status: "ok", db_connected: true, version, environment}` with a real `SELECT 1` against Postgres
   3. `make check` passes with zero errors (pyright + ruff + pytest on api; tsc --noEmit + eslint on web)
   4. `make migrate` runs Alembic upgrade-head inside the api container; `MIGRATIONS.md` documents nullable-first + `CREATE INDEX CONCURRENTLY` discipline
-  5. Postgres RLS is enabled at the cluster level and `app.current_household_id` session variable is reserved (policies still inactive — Phase 1 activates them); structured JSON logging via `structlog` is wired with request_id and sensitive-field redaction**Plans:** 1/6 plans executed
+  5. Postgres RLS is enabled at the cluster level and `app.current_household_id` session variable is reserved (policies still inactive — Phase 1 activates them); structured JSON logging via `structlog` is wired with request_id and sensitive-field redaction**Plans:** 2/6 plans executed
 
 **Wave 1**
 
   - [x] 00-01-PLAN.md — Wave 0: Repo guards (.gitignore, .env.example) + apps/api test infrastructure (pyproject.toml, conftest, failing-by-design test suite)
-  - [ ] 00-02-PLAN.md — Wave 1: FastAPI core (config.py, database.py, logging_config.py, main.py, health/router.py)
+  - [x] 00-02-PLAN.md — Wave 1: FastAPI core (config.py, database.py, logging_config.py, main.py, health/router.py)
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -238,7 +238,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 0. Repo Skeleton | 1/6 | In Progress|  |
+| 0. Repo Skeleton | 2/6 | In Progress|  |
 | 1. Auth + Household + RLS Activation | 0/TBD | Not started | - |
 | 2. Accounts + Net Worth History | 0/TBD | Not started | - |
 | 3. Categories + Manual Transactions + Tags + Transfers | 0/TBD | Not started | - |
