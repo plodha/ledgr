@@ -1,0 +1,74 @@
+# .github/workflows/check.yml
+# Phase 0 CI: runs api + web checks on every push to main and every PR.
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  api:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: pranav
+          POSTGRES_PASSWORD: pranav_dev_password
+          POSTGRES_DB: pranav_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql+asyncpg://pranav:pranav_dev_password@localhost:5432/pranav_test
+      SECRET_KEY: ci-secret-do-not-use-in-prod
+      ENVIRONMENT: test
+      LOG_LEVEL: INFO
+      ALLOWED_ORIGINS: http://localhost:3000
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: |
+            apps/api/requirements.txt
+            apps/api/requirements-dev.txt
+      - name: Install api deps
+        run: pip install -r apps/api/requirements.txt -r apps/api/requirements-dev.txt
+      - name: Apply Alembic baseline
+        working-directory: packages/db
+        run: alembic upgrade head
+      - name: Run ruff + pyright + pytest
+        working-directory: apps/api
+        run: |
+          ruff check .
+          ruff format --check .
+          pyright
+          pytest
+
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+          cache-dependency-path: apps/web/pnpm-lock.yaml
+      - name: Install web deps
+        working-directory: apps/web
+        run: pnpm install --frozen-lockfile
+      - name: Typecheck + lint
+        working-directory: apps/web
+        run: |
+          pnpm tsc --noEmit
+          pnpm lint
