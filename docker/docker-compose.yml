@@ -1,0 +1,73 @@
+# docker/docker-compose.yml
+# PRANAV Phase 0 dev stack: postgres + api + web + adminer.
+# All services set the unless-stopped restart policy per CLAUDE.md.
+# Run from repo root via: make dev (which sets --env-file .env).
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-pranav}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pranav_dev_password}
+      POSTGRES_DB: ${POSTGRES_DB:-pranav}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-pranav} -d ${POSTGRES_DB:-pranav}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-pranav}:${POSTGRES_PASSWORD:-pranav_dev_password}@postgres:5432/${POSTGRES_DB:-pranav}
+      SECRET_KEY: ${SECRET_KEY:-change-me-in-prod}
+      ENVIRONMENT: ${ENVIRONMENT:-dev}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:3000}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../apps/api:/app/apps/api
+      - ../packages:/app/packages
+    command: ["uvicorn", "apps.api.src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+
+  web:
+    build:
+      context: ..
+      dockerfile: apps/web/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - api
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+      API_URL_INTERNAL: http://api:8000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../apps/web:/app
+      - /app/node_modules
+      - /app/.next
+
+  adminer:
+    image: adminer:latest
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+
+volumes:
+  postgres_data:
