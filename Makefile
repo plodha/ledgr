@@ -5,7 +5,7 @@
 #   cp .env.example .env
 #   make dev       # boots 4 containers
 #   make migrate   # (in a second terminal) applies Alembic baseline
-#   make check     # runs lints + typechecks + tests (host-side)
+#   make check     # runs lints + typechecks + tests (inside containers)
 #
 # NOTE: `make shell-db` uses POSTGRES_USER=pranav by default. This patches the legacy
 # pre-rename example in CLAUDE.md per RESEARCH.md Assumption A5 (project renamed 2026-05-23).
@@ -40,10 +40,10 @@ migrate:
 check: check-api check-web
 
 check-api:
-	cd apps/api && ruff check . && ruff format --check . && pyright && pytest
+	$(COMPOSE) exec api sh -c "ruff check . && ruff format --check . && pyright && pytest"
 
 check-web:
-	cd apps/web && pnpm tsc --noEmit && pnpm lint
+	$(COMPOSE) exec web sh -c "pnpm tsc --noEmit && pnpm lint"
 
 shell-api:
 	$(COMPOSE) exec api bash
