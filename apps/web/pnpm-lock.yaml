@@ -1,0 +1,76 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+# NOTE (Phase 0 scaffold): This lockfile is a placeholder stub.
+# It will be regenerated on the first `pnpm install` (run locally or in Docker
+# build). The Dockerfile uses `pnpm install --frozen-lockfile`, so on first
+# build you may need to either (a) run `pnpm install` locally and commit the
+# resulting lockfile, or (b) drop `--frozen-lockfile` temporarily until the
+# lockfile is materialized. After Phase 0 wave merge completes, run:
+#
+#   cd apps/web && pnpm install
+#   git add pnpm-lock.yaml && git commit -m "chore(00-04): materialize pnpm-lock.yaml"
+#
+# This stub is intentional: the parallel-executor agent that scaffolded this
+# directory was forbidden from running `pnpm install` (would be extremely
+# slow and unnecessary in a worktree).
+
+importers:
+
+  .:
+    dependencies:
+      '@hookform/resolvers':
+        specifier: ^5.0.0
+        version: 5.0.0
+      '@tanstack/react-query':
+        specifier: ^5.60.0
+        version: 5.60.0
+      next:
+        specifier: ^16.2.6
+        version: 16.2.6
+      react:
+        specifier: ^19.2.0
+        version: 19.2.0
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.0
+      react-hook-form:
+        specifier: ^7.53.0
+        version: 7.53.0
+      zod:
+        specifier: ^4.0.0
+        version: 4.0.0
+      zustand:
+        specifier: ^5.0.0
+        version: 5.0.0
+    devDependencies:
+      '@eslint/eslintrc':
+        specifier: ^3
+        version: 3.1.0
+      '@tailwindcss/postcss':
+        specifier: ^4
+        version: 4.0.0
+      '@types/node':
+        specifier: ^25
+        version: 25.0.0
+      '@types/react':
+        specifier: ^19
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19
+        version: 19.0.0
+      eslint:
+        specifier: ^9
+        version: 9.0.0
+      eslint-config-next:
+        specifier: ^16.2.6
+        version: 16.2.6
+      tailwindcss:
+        specifier: ^4
+        version: 4.0.0
+      typescript:
+        specifier: ^5
+        version: 5.0.0
