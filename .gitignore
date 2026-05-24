@@ -1,0 +1,46 @@
+# ----------------------------------------------------------------------------
+# .gitignore — PRANAV repo root
+#
+# DO NOT add anything to this file without:
+#   1. confirming the pattern is project-wide (not directory-scoped — those
+#      belong in per-directory .gitignore files), and
+#   2. confirming no checked-in file matches the pattern (run
+#      `git check-ignore -v <path>` if unsure).
+# ----------------------------------------------------------------------------
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.ruff_cache/
+.pyright/
+.pyrightconfig.json.bak
+.venv/
+venv/
+*.egg-info/
+.coverage
+htmlcov/
+
+# Node / Next.js
+node_modules/
+.next/
+.turbo/
+.pnpm-store/
+*.tsbuildinfo
+next-env.d.ts
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Build artifacts
+dist/
+build/
