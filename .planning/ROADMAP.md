@@ -40,7 +40,7 @@ This roadmap uses **horizontal-layer structuring** (foundation → auth → data
   2. `http://localhost:8000/health` returns `{status: "ok", db_connected: true, version, environment}` with a real `SELECT 1` against Postgres
   3. `make check` passes with zero errors (pyright + ruff + pytest on api; tsc --noEmit + eslint on web)
   4. `make migrate` runs Alembic upgrade-head inside the api container; `MIGRATIONS.md` documents nullable-first + `CREATE INDEX CONCURRENTLY` discipline
-  5. Postgres RLS is enabled at the cluster level and `app.current_household_id` session variable is reserved (policies still inactive — Phase 1 activates them); structured JSON logging via `structlog` is wired with request_id and sensitive-field redaction**Plans:** 2/6 plans executed
+  5. Postgres RLS is enabled at the cluster level and `app.current_household_id` session variable is reserved (policies still inactive — Phase 1 activates them); structured JSON logging via `structlog` is wired with request_id and sensitive-field redaction**Plans:** 4/6 plans executed
 
 **Wave 1**
 
@@ -49,11 +49,11 @@ This roadmap uses **horizontal-layer structuring** (foundation → auth → data
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-  - [ ] 00-03-PLAN.md — Wave 2: Alembic async env.py + Phase 0 baseline migration (_phase0_marker + RLS GUC convention reservation)
+  - [x] 00-03-PLAN.md — Wave 2: Alembic async env.py + Phase 0 baseline migration (_phase0_marker + RLS GUC convention reservation)
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-  - [ ] 00-04-PLAN.md — Wave 3: Next.js 16.2 scaffold + placeholder page (Server Component fetching /health) + web Dockerfile
+  - [x] 00-04-PLAN.md — Wave 3: Next.js 16.2 scaffold + placeholder page (Server Component fetching /health) + web Dockerfile
 
 **Wave 4** *(blocked on Wave 3 completion)*
 
@@ -238,7 +238,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 0. Repo Skeleton | 2/6 | In Progress|  |
+| 0. Repo Skeleton | 4/6 | In Progress|  |
 | 1. Auth + Household + RLS Activation | 0/TBD | Not started | - |
 | 2. Accounts + Net Worth History | 0/TBD | Not started | - |
 | 3. Categories + Manual Transactions + Tags + Transfers | 0/TBD | Not started | - |
