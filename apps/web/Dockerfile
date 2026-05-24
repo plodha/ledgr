@@ -10,8 +10,8 @@
 FROM node:22-alpine AS deps
 WORKDIR /app
 RUN corepack enable pnpm
-COPY apps/web/package.json apps/web/pnpm-lock.yaml ./
-RUN pnpm install --no-frozen-lockfile
+COPY apps/web/package.json ./
+RUN pnpm install
 
 FROM node:22-alpine AS builder
 WORKDIR /app
